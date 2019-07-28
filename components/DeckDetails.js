@@ -20,13 +20,9 @@ componentDidMount(){
   this.props.navigation.addListener(
             'didFocus',
             payload => {
-              console.log("testingout");
               AsyncStorage.getItem('DecksObject').then((val)=>{
-                console.log("testingin");
                 let deckObject=JSON.parse(val);
                 let title=this.props.navigation.getParam("title");
-                console.log("title:"+title);
-                console.log("deckObject:"+deckObject);
                 let questions=deckObject[title].questions;
                 this.setState({
                   title,questions
@@ -49,7 +45,6 @@ componentDidMount(){
             <Text style={styles.buttonText}>Start Quiz</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => {  
-               console.log("this.state:"+this.state); 
                this.props.navigation.navigate('NewQuestion',this.state)}}>
             <Text style={styles.buttonText}>Add Question</Text>
           </TouchableOpacity>

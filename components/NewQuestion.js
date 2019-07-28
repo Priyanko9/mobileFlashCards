@@ -32,7 +32,6 @@ addQuestion(event){
       }
     })).then((value)=>{
       AsyncStorage.getItem('DecksObject').then((val)=>{
-        console.log("newQval:"+val);
         this.props.navigation.navigate('DeckDetails',{title});
       })
       

@@ -30,7 +30,6 @@ class Home extends React.Component {
             payload => {
               AsyncStorage.getItem('DecksObject').then((val)=>{
                 let decklist=this.initializeDecks(JSON.parse(val));
-                //console.log("decklistnew:"+JSON.stringify(decklist));
                 this.setState({
                   decklist,
                   keys:Object.keys(val)
@@ -46,7 +45,6 @@ class Home extends React.Component {
         <FlatList
             data={this.state.decklist}
             renderItem={({item}) => <TouchableOpacity onPress={() => {  
-              console.log("item:"+JSON.stringify(item));
                this.props.navigation.navigate('DeckDetails',item)}}>
                 <Deck deckItem={item}/>
            </TouchableOpacity> }

@@ -32,9 +32,7 @@ export function setLocalNotification () {
             if (status === 'granted') {
               Notifications.cancelAllScheduledNotificationsAsync()
               let today = new Date().getDay()
-              console.log("notification");
                 AsyncStorage.getItem("lastQuiz").then((val)=>{
-                console.log("notificationinside:"+val);
                   let lastQuizDay=val?val.getDay():today;
                   if(today>lastQuizDay){
                     Notifications.scheduleLocalNotificationAsync(
