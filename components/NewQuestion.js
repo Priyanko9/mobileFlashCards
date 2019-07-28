@@ -41,20 +41,20 @@ addQuestion(event){
     Alert.alert("Please enter both question and answer");
   }
 }
-
+handleChange(val,label){
+  this.setState({
+    [label]:val
+  })
+}
   render() {
     return (
       <KeyboardAvoidingView style={styles.container} behavior="height" enabled 
       keyboardVerticalOffset="100">
         <View style={styles.container}>
           <TextInput style={styles.textInputQuestion} name="question" type="text" value={this.state.question} placeholder="Enter Question"
-            onChangeText={(value)=>{
-            this.setState({question: value})
-            }}/>
+            onChangeText={value=>this.handleChange(value,"question")}/>
           <TextInput style={styles.textInputAnswer} name="answer" type="text" value={this.state.answer} placeholder="Enter Answer"
-            onChangeText={(value)=>{
-            this.setState({answer: value})
-            }}/>
+            onChangeText={value=>this.handleChange(value,"answer")}/>
           <TouchableOpacity style={styles.button} onPress={()=>this.addQuestion()}>
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableOpacity>

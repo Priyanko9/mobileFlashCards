@@ -4,6 +4,7 @@ AsyncStorage,FlatList,TouchableOpacity,Animated } from 'react-native';
 import Constants from 'expo-constants';
 // You can import from local files
 import { withNavigation } from 'react-navigation';
+import {clearLocalNotification} from '../helper';
 
 class QuizView extends React.Component {
 
@@ -81,14 +82,23 @@ flipCard() {
     this.setCurrentQuestion();
   }
   setCurrentQuestion(){
-    this.setState({remainingQs:this.state.remainingQs-1});
-    if(this.state.currentQIndex===this.state.questions.length-1){
+    let {questions,remainingQs,currentQ,currentQIndex,totalScore } = this.state
+    if (this.value >= 90) {
+      Animated.spring(this.animatedValue,{
+        toValue: 0,
+        friction: 8,
+        tension: 10
+      }).start();
+    }
+    this.setState({remainingQs:remainingQs-1});
+    if(currentQIndex===questions.length-1){
       AsyncStorage.setItem("lastquiz",new Date());
-      this.props.navigation.navigate('ScoreView',{score:this.state.totalScore,
-      deck:{questions:this.state.questions,
+      clearLocalNotification();
+      this.props.navigation.navigate('ScoreView',{score:totalScore,
+      deck:{questions:questions,
       title:this.props.navigation.getParam("title")}})
-    } else if(this.state.currentQIndex < this.state.questions.length-1){
-    this.setState({currentQIndex:++this.state.currentQIndex,currentQ:this.state.questions[this.state.currentQIndex]})
+    } else if(currentQIndex < questions.length-1){
+    this.setState({currentQIndex:++currentQIndex,currentQ:questions[currentQIndex]})
     }
   }
   

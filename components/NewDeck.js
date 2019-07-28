@@ -19,10 +19,22 @@ addDeck(event){
   let name=this.state.deckNameInput;
   if(name!==""){
     let obj={
-        [name]:{}
+        [name]:{
+          "title":name,
+          questions:[]
+        }
       }
-    AsyncStorage.mergeItem('DecksObject',JSON.stringify(obj),()=>{
-          this.props.navigation.navigate('Home');
+    AsyncStorage.mergeItem('DecksObject',JSON.stringify(obj),(val)=>{
+      AsyncStorage.getItem('DecksObject', (err, result) => {
+        console.log("result:"+result);
+        console.log("name:"+name);
+        let deck=(JSON.parse(result))[name];
+        console.log("deck:"+deck);
+        let decknKeyObj={key:name,deck};
+       
+        console.log("mergeItem:"+JSON.stringify(decknKeyObj));
+        this.props.navigation.navigate('DeckDetails',decknKeyObj);
+      });
     });
   } else {
     Alert.alert("Please enter a deck name");

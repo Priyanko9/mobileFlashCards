@@ -2,18 +2,20 @@ import * as React from 'react';
 import { Text, View, StyleSheet, TouchableOpacity,Image } from 'react-native';
 import { Card } from 'react-native-paper';
 
-export default class Deck extends React.Component {
-  render() {
-    return (
+
+const Deck=(props)=>{
+  return (
       <View style={styles.container}>
             <Card style={styles.card}>
               <Text style={styles.paragraph}>
-                {this.props.deckItem.key}
+                {props.deckItem.key}
+              </Text>
+              <Text style={styles.paragraph}>
+                Total Questions {props.deckItem.deck.questions.length}
               </Text>
             </Card>
       </View>
     );
-  }
 }
 
 const styles = StyleSheet.create({
@@ -29,9 +31,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   card:{
-    height:60,
+    height:100,
     alignItems: 'center',
-    width:120,
+    width:180,
     paddingTop:10
   }
 });
+
+export default Deck;
